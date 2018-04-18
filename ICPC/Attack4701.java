@@ -38,25 +38,25 @@ public class Attack4701
 					int dices = parse(beg(arr[j]));
 					
 					if(op(s, arr[j]) == '+'){
-                        for (int k = 1; k <= dices; k++){
-                            int newmax = max + faces, newmin = min + 1;
+                  		for (int k = 1; k <= dices; k++){
+                        	int newmax = max + faces, newmin = min + 1;
                             int [] new_prob = new int[newmax - newmin + 1];
                             
-                            for(int l = newmin; l <= newmax; l++){
+							for(int l = newmin; l <= newmax; l++){
                                 for(int m = 1; m <= faces; m++){
-                                    if(l - m >= min && l - m <= max){
-                                        new_prob[l - newmin] += prob[l - m - min];
-                                    }
-                                }
-                            }
-                            prob = new_prob;
-                            max = newmax;
-                            min = newmin;
-                            total *= faces;
+                                	if(l - m >= min && l - m <= max){
+                                    	new_prob[l - newmin] += prob[l - m - min];
+                                  	}
+                              	}	
+                          	}
+                          	prob = new_prob;
+                          	max = newmax;
+                          	min = newmin;
+                          	total *= faces;
                         }
     				}
     				else{
-    				   for(int k = 1; k <= dices; k++) {
+    				   	for(int k = 1; k <= dices; k++) {
                             int newmax = max - 1, newmin = min - faces;
                             int [] new_prob = new int[newmax - newmin + 1];
     				       
@@ -74,7 +74,10 @@ public class Attack4701
     				   }
     				}
 				}
-				s = s.substring(arr[j].length());
+				if(j == 0)	
+					s = s.substring(arr[j].length());
+				else
+					s = s.substring(arr[j].length() + 1);
 			}
 			
 			for(int j = target;j <= max; j++){
