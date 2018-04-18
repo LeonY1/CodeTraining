@@ -13,7 +13,7 @@ public class UVA10226{
 			ArrayList<String> list = new ArrayList<String>();
 			String s = "";
 			int total = 0;
-			while(!(s = in.readLine()).equals("")){
+			while(in.ready() && !(s = in.readLine()).equals("")){
 				if(map.get(s) == null){
 					map.put(s, 1);
 					list.add(s);
@@ -24,9 +24,10 @@ public class UVA10226{
 			}
 			Collections.sort(list);
 			for(String s1: list){
-				System.out.printf("%s %.4f\n", s1, map.get(s1) * 1.0  / total); 
+				System.out.printf("%s %.4f\n", s1, map.get(s1) * 100.0  / total); 
 			}
-
+			if(i < n -1)
+				System.out.println();
 		}
 	}
 }
