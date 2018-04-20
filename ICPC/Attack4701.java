@@ -23,15 +23,13 @@ public class Attack4701
 			prob[0] = 1;
 			int min = 0, max = 0, total = 1, sum = 0;
 
-			for(int j = 0; j < arr.length; j++){
-			    
+			for(int j = 0; j < arr.length; j++){ 
+				System.out.println(s);
 				if(arr[j].indexOf("d") == -1){
-					if(op(s, arr[j]) == '+'){
+					if(op(s, arr[j]) == '+')
 						target -= parse(arr[j]);
-					}
-					else{
+					else
 					    target += parse(arr[j]);
-					}
 				}
 				else{
 					int faces = parse(end(arr[j]));
@@ -41,7 +39,6 @@ public class Attack4701
                   		for (int k = 1; k <= dices; k++){
                         	int newmax = max + faces, newmin = min + 1;
                             int [] new_prob = new int[newmax - newmin + 1];
-                            
 							for(int l = newmin; l <= newmax; l++){
                                 for(int m = 1; m <= faces; m++){
                                 	if(l - m >= min && l - m <= max){
@@ -62,7 +59,7 @@ public class Attack4701
     				       
                             for(int l = newmin; l <= newmax; l++){
     				           for(int m = 1; m <= faces; m++){
-    				               if(l + m >= min&&l + m <= max){
+    				               if(l + m >= min && l + m <= max){
     				                   new_prob[l - newmin] += prob[l + m - min];
     				               }
     				           }
