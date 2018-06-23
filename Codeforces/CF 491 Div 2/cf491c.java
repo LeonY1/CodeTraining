@@ -1,50 +1,50 @@
+/*
+Things I've learned:
+	- Can use binary search to find where the most applicable solution is
+
+Things did correctly the first time:
+	- Switching from high = mid - 1 to high = mid
+
+Things I did incorrectly:
+	- Using math.ceil when it was far easier and accurate to multiply
+*/
 import java.util.*;
 import java.io.*;
 
-public class cf490d{
+public class cf491c{
 	public static void main(String [] args) throws IOException{
-		InputReader in = new InputReader("cf490d.in");
-	
-		int n = in.nextInt();
-		int k = in.nextInt();
-		int cnt = 0;
-		int [] arr = new int[n];
-		int [] rem = new int[k];
+		InputReader in = new InputReader("cf491c.in");
+		
+		long n = Long.parseLong(in.next());
 
-		for(int i = 0; i < n; i++){
-			arr[i] = in.nextInt();
-			if(rem[arr[i] % k] == n/k){
-				int j = 1;
-				while(rem[(arr[i] + j) % k] == n/k){
-					j++;
-				}
-				cnt += j;
-				arr[i] += j;
-				rem[arr[i] % k]++;
-			}
-			else{
-				rem[arr[i] % k]++;
-			}
-		}
+		long low = 1;
+		long high = n;
 
-		System.out.println(cnt);
-		for(int i = 0; i < arr.length; i++){
-			if(i < arr.length - 1)
-				System.out.print(arr[i] + " ");
+		while(low <= high){
+			if(low == high)
+				break;
+			long mid = (low + high) / 2;
+			if(valid(mid, n)){
+				high = mid;
+			}
 			else
-				System.out.println(arr[i]);
+				low = mid + 1;
 		}
+		System.out.println(low);
 	}
 
-	static class Pair implements Comparable<Pair>{
-		int rem, id;
-		public Pair(int x, int y){
-			rem = x;
-			id = y;
+	public static boolean valid(long k, long n){
+		long v = 0;
+		long tot = n;
+		while(n > 0){
+			v += Math.min(n, k);
+			n -= k;
+			n -= n / 10;
 		}
-		public int compareTo(Pair p){
-			return p.rem - rem;
+		if(v * 2 >= tot){
+				return true;
 		}
+		return false;
 	}
 
 	static class InputReader {
@@ -60,7 +60,6 @@ public class cf490d{
 			}
 			tokenizer = null;
 		}
-
 		public String next() {
 			while (tokenizer == null || !tokenizer.hasMoreTokens()) {
 				try {

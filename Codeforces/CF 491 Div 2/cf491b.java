@@ -1,50 +1,48 @@
+/*
+Things I've learned:
+	- Make sure you stop where you want to
+		- If that means putting a break in where it is necessary vs. when it shouldn't be
+*/
+
+
 import java.util.*;
 import java.io.*;
 
-public class cf490d{
+public class cf491b{
 	public static void main(String [] args) throws IOException{
-		InputReader in = new InputReader("cf490d.in");
-	
+		InputReader in = new InputReader("cf491b.in");
+		
 		int n = in.nextInt();
-		int k = in.nextInt();
-		int cnt = 0;
-		int [] arr = new int[n];
-		int [] rem = new int[k];
-
+		int [] freq = new int[6];
+		int [] mult = {0, 0, 3, 2, 1, 0};
+		int sum = 0;
 		for(int i = 0; i < n; i++){
-			arr[i] = in.nextInt();
-			if(rem[arr[i] % k] == n/k){
-				int j = 1;
-				while(rem[(arr[i] + j) % k] == n/k){
-					j++;
+			int num = in.nextInt();
+			freq[num]++;
+			sum += num;
+		}
+
+		double min = 4.5 * n;
+		int tot = 0;
+
+		if(sum < min){
+			for(int i = 2; i < 5; i++){
+				if(freq[i] > 0 && sum + mult[i] * freq[i] >= min){
+					int ss = (int) (Math.ceil((min - sum) / mult[i]));
+					tot += ss;
+					sum += ss * mult[i];
+					break;
 				}
-				cnt += j;
-				arr[i] += j;
-				rem[arr[i] % k]++;
+				else if(freq[i] > 0 && sum + mult[i] * freq[i] < min){
+					tot += freq[i];
+					sum += freq[i] * mult[i];
+				}
 			}
-			else{
-				rem[arr[i] % k]++;
-			}
+			System.out.println(tot);
+		}else{
+			System.out.println(0);
 		}
 
-		System.out.println(cnt);
-		for(int i = 0; i < arr.length; i++){
-			if(i < arr.length - 1)
-				System.out.print(arr[i] + " ");
-			else
-				System.out.println(arr[i]);
-		}
-	}
-
-	static class Pair implements Comparable<Pair>{
-		int rem, id;
-		public Pair(int x, int y){
-			rem = x;
-			id = y;
-		}
-		public int compareTo(Pair p){
-			return p.rem - rem;
-		}
 	}
 
 	static class InputReader {
@@ -60,7 +58,6 @@ public class cf490d{
 			}
 			tokenizer = null;
 		}
-
 		public String next() {
 			while (tokenizer == null || !tokenizer.hasMoreTokens()) {
 				try {

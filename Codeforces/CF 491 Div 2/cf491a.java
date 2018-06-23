@@ -1,49 +1,29 @@
+/*
+Things I've learned:
+	- Check corner cases
+	- In this case, the case where the center is less than either one of the sides
+*/
+
 import java.util.*;
 import java.io.*;
 
-public class cf490d{
+public class cf491a{
 	public static void main(String [] args) throws IOException{
-		InputReader in = new InputReader("cf490d.in");
-	
-		int n = in.nextInt();
-		int k = in.nextInt();
-		int cnt = 0;
-		int [] arr = new int[n];
-		int [] rem = new int[k];
+		InputReader in = new InputReader("cf491a.in");
+		
+		int a = in.nextInt();	
+		int b = in.nextInt();
+		int c = in.nextInt();
+		int d = in.nextInt();
 
-		for(int i = 0; i < n; i++){
-			arr[i] = in.nextInt();
-			if(rem[arr[i] % k] == n/k){
-				int j = 1;
-				while(rem[(arr[i] + j) % k] == n/k){
-					j++;
-				}
-				cnt += j;
-				arr[i] += j;
-				rem[arr[i] % k]++;
-			}
-			else{
-				rem[arr[i] % k]++;
-			}
-		}
-
-		System.out.println(cnt);
-		for(int i = 0; i < arr.length; i++){
-			if(i < arr.length - 1)
-				System.out.print(arr[i] + " ");
+		if(d - (a + b - c) >= 1){
+			if(c <= b && c <= a)
+				System.out.println(d - (a + b - c));
 			else
-				System.out.println(arr[i]);
+				System.out.println(-1);
 		}
-	}
-
-	static class Pair implements Comparable<Pair>{
-		int rem, id;
-		public Pair(int x, int y){
-			rem = x;
-			id = y;
-		}
-		public int compareTo(Pair p){
-			return p.rem - rem;
+		else{
+			System.out.println(-1);
 		}
 	}
 
@@ -60,7 +40,6 @@ public class cf490d{
 			}
 			tokenizer = null;
 		}
-
 		public String next() {
 			while (tokenizer == null || !tokenizer.hasMoreTokens()) {
 				try {
