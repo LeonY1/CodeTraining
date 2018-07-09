@@ -1,4 +1,9 @@
 /*
+Finished on the 2nd try
+	- Don't miss something as simple as accidentally adding parentheses with nothing in them
+*/
+
+/*
 ID: leonyyu1
 LANG: JAVA
 TASK: fracdec

@@ -1,26 +1,31 @@
 import java.util.*;
 import java.io.*;
 
-public class cfedu46c{
+public class cf496a{
 	public static void main(String [] args) throws IOException{
-		InputReader in = new InputReader("cfedu46c.in");
+		InputReader in = new InputReader("cf496a.in");
 		
 		int n = in.nextInt();
-		Long [] arr = new Long[2 * n];
+		ArrayList<Integer> l = new ArrayList<>();
+		int prev = 0;
+
 		for(int i = 0; i < n; i++){
-			arr[2 * i] = Long.parseLong(in.next()) * 2;
-			arr[2 * i  + 1] = Long.parseLong(in.next()) * 2 + 1;
+			int num = in.nextInt();
+			if(prev >= num){
+				l.add(prev);
+			}
+			if(i == n - 1)
+				l.add(num);
+			prev = num;
 		}
+		System.out.println(l.size());
 
-		Arrays.sort(arr);
-
-		int [] ans = new int[n];
-		int id = 0;
-		for(int i = 0; i < 2 * n - 1; i++){
-			if(arr[i] % 2 == 0) cnt++;
-			else cnt--;
-			ans[cnt] += (arr[i + 1] / 2) - (arr[i] / 2);
+		StringBuilder sb = new StringBuilder();
+		for(int i: l){
+			sb.append(i);
+			sb.append(" ");
 		}
+		System.out.println(sb);
 
 	}
 

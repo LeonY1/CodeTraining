@@ -1,26 +1,40 @@
 import java.util.*;
 import java.io.*;
 
-public class cfedu46c{
+public class cf496c{
 	public static void main(String [] args) throws IOException{
-		InputReader in = new InputReader("cfedu46c.in");
+		InputReader in = new InputReader("cf496c.in");
 		
 		int n = in.nextInt();
-		Long [] arr = new Long[2 * n];
-		for(int i = 0; i < n; i++){
-			arr[2 * i] = Long.parseLong(in.next()) * 2;
-			arr[2 * i  + 1] = Long.parseLong(in.next()) * 2 + 1;
+		Integer [] arr = new Integer[n];
+		int [] twos = new int[30];
+		boolean []  visit = new boolean[n];
+
+		twos[0] = 2;
+		for(int i = 1;i < twos.length; i++){
+			twos[i] = twos[i - 1] << 1;
 		}
 
+		int cnt = n;
+		for(int i = 0; i < n; i++){
+			arr[i] = in.nextInt();
+		}
 		Arrays.sort(arr);
 
-		int [] ans = new int[n];
-		int id = 0;
-		for(int i = 0; i < 2 * n - 1; i++){
-			if(arr[i] % 2 == 0) cnt++;
-			else cnt--;
-			ans[cnt] += (arr[i + 1] / 2) - (arr[i] / 2);
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < twos.length; j++){
+				int index = Arrays.binarySearch(arr, twos[j] - arr[i]);
+				if(index >= 0 && index != i){
+					cnt -= visit[i]? 0: 1;
+					cnt -= visit[index]? 0 : 1;
+					visit[i] = visit[index] = true;
+					break;
+				}
+			}
 		}
+
+
+		System.out.println(cnt);
 
 	}
 
